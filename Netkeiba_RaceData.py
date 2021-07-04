@@ -7,6 +7,9 @@ import re
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # ドライバーのフルパス
 CHROMEDRIVER = "C:\\chromedriver.exe"
@@ -36,7 +39,7 @@ def get_source_from_page(driver, page):
         # id="RaceTopRace"の要素が見つかるまで10秒は待つ
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'RaceTopRace')))
         page_source = driver.page_source
- 
+        
         return page_source
  
     except Exception as e:
@@ -49,26 +52,22 @@ def get_source_from_page(driver, page):
 def get_data_from_source(src):
     # スクレイピングする
     soup = bs4.BeautifulSoup(src, features='lxml')
- 
     try:
         info = []
         elem_base = soup.find(id="RaceTopRace")
- 
+
         if elem_base:
             elems = elem_base.find_all("li", class_="RaceList_DataItem")
- 
             for elem in elems:
                 # 最初のaタグ
                 a_tag = elem.find("a")
- 
                 if a_tag:
                     href = a_tag.attrs['href']
-                    match = re.findall("\/race\/result.html\?race_id=(.*)&amp;rf=race_list", href)
- 
-                    if len(match) > 0:
-                        item_id = match[0]
+                    match2 = re.findall("\/race\/result.html\?race_id=(.*)&rf=race_list", href)
+                    # match2 = re.findall("race_id=(.*)", href)
+                    if len(match2) > 0:
+                        item_id = match2[0]
                         info.append(item_id)
- 
         return info
  
     except Exception as e:
@@ -94,9 +93,6 @@ if __name__ == "__main__":
     
     raceDateList = getRaceDate(raceDateListPath)
 
-    page = "https://race.netkeiba.com/top/race_list.html?kaisai_date=" + raceDateList[0]
-    print(page)
-    exit()
     # ブラウザdriver取得
     driver = get_driver()
 
@@ -106,26 +102,25 @@ if __name__ == "__main__":
     for kaisai_date in raceDateList:
  
         page_counter = page_counter + 1
- 
+    
         # 対象ページURL
         page = "https://race.netkeiba.com/top/race_list.html?kaisai_date=" + str(kaisai_date)
- 
         # ページのソース取得
         source = get_source_from_page(driver, page)
- 
+
         # ソースからデータ抽出
         data = get_data_from_source(source)
- 
         # データ保存
-        print(data)
- 
+        # print(data)
+
+        for line in data:
+            print(line)
         # 間隔を設ける(秒単位）
         time.sleep(INTERVAL_TIME)
  
         # 改ページ処理を抜ける
-        if page_counter == PAGE_MAX:
-            break
- 
+        # if page_counter == PAGE_MAX:
+        #     break
 
     # driverを閉じる
     driver.quit()
