@@ -33,7 +33,8 @@ def get_source_from_page(driver, page):
     try:
         # ターゲット
         driver.get(page)
-        driver.implicitly_wait(10)  # 見つからないときは、10秒まで待つ
+        # id="RaceTopRace"の要素が見つかるまで10秒は待つ
+        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, 'RaceTopRace')))
         page_source = driver.page_source
  
         return page_source
@@ -51,17 +52,18 @@ def get_data_from_source(src):
  
     try:
         info = []
-        table = soup.find(class_="Calendar_Table")
+        elem_base = soup.find(id="RaceTopRace")
  
-        if table:
-            elems = table.find_all("td", class_="RaceCellBox")
+        if elem_base:
+            elems = elem_base.find_all("li", class_="RaceList_DataItem")
  
             for elem in elems:
+                # 最初のaタグ
                 a_tag = elem.find("a")
  
                 if a_tag:
                     href = a_tag.attrs['href']
-                    match = re.findall("\/top\/race_list.html\?kaisai_date=(.*)$", href)
+                    match = re.findall("\/race\/result.html\?race_id=(.*)&amp;rf=race_list", href)
  
                     if len(match) > 0:
                         item_id = match[0]
@@ -70,34 +72,60 @@ def get_data_from_source(src):
         return info
  
     except Exception as e:
+ 
         print("Exception\n" + traceback.format_exc())
  
         return None
 
+# レースの日付リストを取得
+def getRaceDate(dateListPath):
+    raceDateList = []
+    f = open(dateListPath, 'r')
+    for line in f:
+        raceDateList.append(line.replace("\n",""))
+    f.close()
+    return raceDateList
 
 # 競馬開催日リストを作成するプログラム
 # 標準出力されるため何かしらにアウトプットをすること
 if __name__ == "__main__":
 
+    raceDateListPath = "C:\\Users\\OBM2525\\Documents\\Workspace\\Netkeiba\\2016_2020_schedule.txt"
+    
+    raceDateList = getRaceDate(raceDateListPath)
+
+    page = "https://race.netkeiba.com/top/race_list.html?kaisai_date=" + raceDateList[0]
+    print(page)
+    exit()
     # ブラウザdriver取得
     driver = get_driver()
+
+     # ページカウンター制御
     page_counter = 0
-
-    for year in YEAR:
-        for month in range(1,13):
-            page_counter = page_counter + 1
-            # 対象ページURL
-            page = "https://race.netkeiba.com/top/calendar.html?year=" + str(year) + "&month=" + str(month)
-            # ページのソース取得
-            source = get_source_from_page(driver, page)
-            # ソースからデータ抽出
-            data = get_data_from_source(source)
-
-            for line in data:
-                print(line)
-
-            # 間隔を設ける(秒単位）
-            time.sleep(INTERVAL_TIME)
+ 
+    for kaisai_date in raceDateList:
+ 
+        page_counter = page_counter + 1
+ 
+        # 対象ページURL
+        page = "https://race.netkeiba.com/top/race_list.html?kaisai_date=" + str(kaisai_date)
+ 
+        # ページのソース取得
+        source = get_source_from_page(driver, page)
+ 
+        # ソースからデータ抽出
+        data = get_data_from_source(source)
+ 
+        # データ保存
+        print(data)
+ 
+        # 間隔を設ける(秒単位）
+        time.sleep(INTERVAL_TIME)
+ 
+        # 改ページ処理を抜ける
+        if page_counter == PAGE_MAX:
+            break
+ 
 
     # driverを閉じる
     driver.quit()
