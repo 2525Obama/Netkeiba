@@ -1,5 +1,8 @@
 # https://self-development.info/netkeiba%E3%82%92%E3%82%B9%E3%82%AF%E3%83%AC%E3%82%A4%E3%83%94%E3%83%B3%E3%82%B0%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95%E3%82%92%E8%A7%A3%E8%AA%AC%E3%80%90%E6%BA%96%E5%82%99%E7%B7%A8%E3%80%91/
 # https://self-development.info/netkeiba%e3%81%aeweb%e3%82%b9%e3%82%af%e3%83%ac%e3%82%a4%e3%83%94%e3%83%b3%e3%82%b0%e3%82%92python%e3%81%a7%e8%a1%8c%e3%81%86%e3%80%90%e7%ab%b6%e9%a6%ac%e9%96%8b%e5%82%ac%e6%97%a5%e3%81%ae%e6%8a%bd/
+# 開催レースデータを作成する
+# これをもとにデータURLを求める
+
 
 import bs4
 import traceback
