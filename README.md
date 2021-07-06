@@ -19,3 +19,9 @@ git remote add origin https://github.com//***.git]
 # localリポジトリをPushしてリモートリポジトリへ反映する
 ※masterでうまくいかない場合はmain
 git push origin master
+
+
+# localリポジトリの中身をremoteリポジトリの内容に更新する
+※remoteリポジトリにつながっていない場合は以下のコマンドも実行
+git remote add origin git@github.com
+git pull origin master
