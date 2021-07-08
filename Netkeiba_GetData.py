@@ -365,7 +365,7 @@ if __name__ == "__main__":
         f = open(outName,"w")
         json.dump(data,f, ensure_ascii=False)
         f.close()
- 
+        exit()
         # 間隔を設ける(秒単位）
         time.sleep(INTERVAL_TIME)
  
