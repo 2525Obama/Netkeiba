@@ -118,6 +118,8 @@ if __name__ == "__main__":
 
         for line in data:
             print(line)
+
+        exit()
         # 間隔を設ける(秒単位）
         time.sleep(INTERVAL_TIME)
  

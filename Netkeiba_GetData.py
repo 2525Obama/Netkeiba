@@ -4,6 +4,7 @@ import bs4
 import traceback
 import re
 import time
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,7 +15,7 @@ from selenium.webdriver.common.by import By
 # ドライバーのフルパス
 CHROMEDRIVER = "C:\\chromedriver.exe"
 # 改ページ（最大）
-PAGE_MAX = 2
+PAGE_MAX = 6
 # 遷移間隔（秒）
 INTERVAL_TIME = 3
  
@@ -334,11 +335,10 @@ def get_list_id(listData):
     for line in f:
         getList.append(line.replace("\n",""))
         count += 1
-        if count == 2:
-            break
     return getList
  
 if __name__ == "__main__":
+    outPath = "C:\\Users\\OBM2525\\Documents\\Data\\"
     listData = "C:\\Users\\OBM2525\\Documents\\Workspace\\Netkeiba\\2016_2020_R2.txt"
     # kaisai_dateリスト取得
     list_id = get_list_id(listData)
@@ -360,11 +360,11 @@ if __name__ == "__main__":
  
         # ソースからデータ抽出
         data = get_data_from_source(source)
-    
-        # データ保存
-        print(data)
 
-        exit()
+        outName = outPath + race_id + ".json"
+        f = open(outName,"w")
+        json.dump(data,f, ensure_ascii=False)
+        f.close()
  
         # 間隔を設ける(秒単位）
         time.sleep(INTERVAL_TIME)
