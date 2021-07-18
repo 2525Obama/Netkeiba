@@ -1,0 +1,22 @@
+Create Table Horse_Info(
+no varchar(50),
+id varchar(50),
+ranknum int,
+waku int,
+horseid int,
+horsename varchar(50),
+horsesex varchar(50),
+horseage int,
+horseweight int,
+jockeyweight float,
+jockeyid int,
+jockeyname varchar(50),
+time1 time(1),
+time2 varchar(50),
+time3 float,
+odds1 int,
+odds2 float,
+passagerate varchar(50),
+trainerid int,
+trainername varchar(50)
+)

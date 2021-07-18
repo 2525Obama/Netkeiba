@@ -1,4 +1,6 @@
 # https://self-development.info/netkeiba%e3%82%92%e3%83%90%e3%83%ac%e3%82%8b%e3%81%93%e3%81%a8%e3%81%aa%e3%81%8f%e3%82%b9%e3%82%af%e3%83%ac%e3%82%a4%e3%83%94%e3%83%b3%e3%82%b0%e3%81%99%e3%82%8b%e3%80%90%e7%ab%b6%e9%a6%ac%e3%83%ac/
+# 2.NetKeibaからデータを取得、Jsonとして保存する
+
 
 import bs4
 import traceback
@@ -365,13 +367,12 @@ if __name__ == "__main__":
         f = open(outName,"w")
         json.dump(data,f, ensure_ascii=False)
         f.close()
-        exit()
         # 間隔を設ける(秒単位）
         time.sleep(INTERVAL_TIME)
  
         # 改ページ処理を抜ける
-        if page_counter == PAGE_MAX:
-            break
+        # if page_counter == PAGE_MAX:
+        #    break
  
  
     # 閉じる

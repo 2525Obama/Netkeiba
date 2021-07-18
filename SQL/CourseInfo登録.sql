@@ -1,0 +1,17 @@
+insert into Course_Info values (1,'D–y');
+insert into Course_Info values (2,'”ŸŠÙ');
+insert into Course_Info values (3,'•Ÿ“‡');
+insert into Course_Info values (4,'’†R');
+insert into Course_Info values (5,'“Œ‹');
+insert into Course_Info values (6,'VŠƒ');
+insert into Course_Info values (7,'’†‹');
+insert into Course_Info values (8,'‹“s');
+insert into Course_Info values (9,'ã_');
+insert into Course_Info values (10,'¬‘q');
+insert into Course_Info values (11,'–å•Ê');
+insert into Course_Info values (12,'·‰ª');
+insert into Course_Info values (13,'‰Y˜a');
+insert into Course_Info values (14,'‘D‹´');
+insert into Course_Info values (15,'‘åˆä');
+insert into Course_Info values (16,'ìè');
+insert into Course_Info values (99,'‚»‚Ì‘¼');
