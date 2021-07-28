@@ -341,7 +341,8 @@ def get_list_id(listData):
  
 if __name__ == "__main__":
     outPath = "C:\\Users\\OBM2525\\Documents\\Data\\"
-    listData = "C:\\Users\\OBM2525\\Documents\\Workspace\\Netkeiba\\2016_2020_R2.txt"
+    #listData = "C:\\Users\\OBM2525\\Documents\\Workspace\\Netkeiba\\2016_2020_R2.txt"
+    listData = "C:\\Users\\OBM2525\\Documents\\Workspace\\Netkeiba\\RegetList.txt"
     # kaisai_dateリスト取得
     list_id = get_list_id(listData)
     # ブラウザのdriver取得
